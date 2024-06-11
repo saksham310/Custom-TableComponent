@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <table class="table">
+    <tr>
+   @for(value of headers;track headers){
+     <th>{{value}}</th>
+   }
+    </tr>
+@for(data of tableData;track data){
+  <tr>
+    @for(value of headers;track headers){
+
+  <td>{{data[value]}}</td>}
+  </tr>
+}
+<tr>
+
+</tr>
+  </table>
+</div>
