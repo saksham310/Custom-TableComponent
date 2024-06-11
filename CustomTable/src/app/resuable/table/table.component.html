@@ -2,7 +2,7 @@
   <table class="table">
     <tr>
    @for(value of headers;track headers){
-     <th>{{value}}</th>
+     <th (click)="onSort(value,orderBy)">{{value}}</th>
    }
     </tr>
 @for(data of tableData;track data){
