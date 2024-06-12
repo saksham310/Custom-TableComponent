@@ -14,7 +14,7 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
   @Input() rowsPerPage!:number;
-  private startPage:number=1
+  private startPage:number=0
   public totalPages!:number;
   newTableData:any[]=[];
   public orderBy = 'desc';
