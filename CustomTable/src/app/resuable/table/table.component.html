@@ -18,6 +18,11 @@
 
 </tr>
   </table>
-  <button (click)="onPageChange(2)">test</button>
-  <button (click)="onPageChange(3)">test2</button>
+  @for(pages of totalCount(totalPages);track pages;let i=$index){
+    <button (click)="onPageChange(i)">{{i+1}}</button>
+  }
+
+<!--  <button (click)="onPageChange(2)">2</button>-->
+<!--  <button (click)="onPageChange(3)">3</button>-->
+<!--  <button (click)="onPageChange(4)">4</button>-->
 </div>

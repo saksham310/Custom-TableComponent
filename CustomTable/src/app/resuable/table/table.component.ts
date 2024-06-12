@@ -13,22 +13,27 @@ import {JsonPipe} from "@angular/common";
 export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
+  @Input() rowsPerPage!:number;
+  private startPage:number=1
+  public totalPages!:number;
   newTableData:any[]=[];
   public orderBy = 'desc';
   icon='pi pi-sort-alt'
-  testIndex=1;
 @ViewChild('table') table!:ElementRef
 
 
 
-ngOnChanges(changes:SimpleChange){
+  ngOnChanges(changes:SimpleChange){
   if (changes.hasOwnProperty('tableData')) {
-    this.onPageChange(1)
+    this.totalPages= Math.ceil(this.tableData.length/this.rowsPerPage)
+    this.onPageChange(this.startPage)
     this.onSort(this.headers[1],'desc')
+    console.log(this.totalCount(this.totalPages));
+
   }
 
 }
-  onSort(value: string, orderType: string) {
+  public onSort(value: string, orderType: string) {
     if(orderType=='desc'){
       this.orderBy='asc'
       this.newTableData=this.newTableData.sort((a,b):number=>{
@@ -44,9 +49,14 @@ ngOnChanges(changes:SimpleChange){
 
   }
 }
-  onPageChange(start:number){
-  start=25*(start-1);
-  const end=start+25;
+  public onPageChange(start:number){
+  start=this.rowsPerPage*(start);
+  const end=start+this.rowsPerPage;
     this.newTableData=this.tableData.slice(start,end)
+  }
+
+
+  public totalCount(num:number){
+    return Array(num);
   }
 }
