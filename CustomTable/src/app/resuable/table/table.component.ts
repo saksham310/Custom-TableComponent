@@ -19,7 +19,7 @@ export class TableComponent {
   newTableData:any[]=[];
   public orderBy = 'desc';
   icon ="pi pi-times"
-  public pageLimit=5;
+  public pageLimit=10;
   private left:number=1;
   private right:number=this.pageLimit;
   pageRange:number[]=[];

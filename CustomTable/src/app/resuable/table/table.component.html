@@ -1,5 +1,7 @@
 <div class="wrapper">
+
   <table class="table" #table>
+
     <tr>
 
    @for(value of headers;track headers){
@@ -18,9 +20,10 @@
 
 </tr>
   </table>
-  @for(pages of pageRange;track pages;let i=$index){
+  <div class="pagination"> @for(pages of pageRange;track pages;let i=$index){
     <button (click)="onPageChange(pages)">{{pages}}</button>
-  }
+  }</div>
+
 <!--@for(n of test;track n){-->
 <!--  {{n}}-->
 <!--}-->

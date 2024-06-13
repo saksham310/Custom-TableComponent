@@ -1,7 +1,22 @@
 .table,th,td{
   border: 1px solid black;
   border-collapse: collapse;
+  padding: 1rem;
 }
 .table{
   width: 100%;
+}
+th{
+  min-width: 80px;
+}
+.pagination{
+  margin-top: 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+}
+.wrapper{
+  padding: 1.8rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
