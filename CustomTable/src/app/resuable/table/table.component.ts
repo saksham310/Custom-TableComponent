@@ -14,17 +14,22 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
   @Input() rowsPerPage!:number;
-  private startPage:number=0
+  private startPage:number=1
   public totalPages!:number;
   newTableData:any[]=[];
   public orderBy = 'desc';
-  icon='pi pi-sort-alt'
+  icon ="pi pi-times"
+  public pageLimit=5;
+  private left:number=1;
+  private right:number=this.pageLimit;
+  pageRange:number[]=[];
 @ViewChild('table') table!:ElementRef
 
 
 
   ngOnChanges(changes:SimpleChange){
   if (changes.hasOwnProperty('tableData')) {
+
     this.totalPages= Math.ceil(this.tableData.length/this.rowsPerPage)
     this.onPageChange(this.startPage)
     this.onSort(this.headers[1],'desc')
@@ -50,12 +55,35 @@ export class TableComponent {
   }
 }
   public onPageChange(start:number){
-  start=this.rowsPerPage*(start);
+    this.generateRange(start);
+  start=this.rowsPerPage*(start-1);
   const end=start+this.rowsPerPage;
     this.newTableData=this.tableData.slice(start,end)
+
   }
 
+  calculatePageRange(currentPage:number){
+  this.left=currentPage-Math.floor(this.pageLimit/2)
+    this.right=currentPage+Math.floor(this.pageLimit/2)
+    if(this.left<1){
+      this.left=1;
+      this.right=this.pageLimit;
+    }
+    if(this.right>this.totalPages){
+      this.right=this.totalPages;
+      this.left=this.totalPages-(this.pageLimit-1)<1?1:this.totalPages-(this.pageLimit-1);
+    }
+  }
 
+  generateRange(currentPage:number){
+  this.calculatePageRange(currentPage);
+  console.log(this.left,this.right);
+    this.pageRange=[];
+  for(let i=this.left;i<=this.right;i++){
+
+this.pageRange.push(i);
+  }
+  }
   public totalCount(num:number){
     return Array(num);
   }
