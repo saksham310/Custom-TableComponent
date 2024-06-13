@@ -5,6 +5,7 @@
 }
 .table{
   width: 100%;
+  table-layout: auto;
 }
 th{
   min-width: 80px;
@@ -19,4 +20,21 @@ th{
 .wrapper{
   padding: 1.8rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.currentPage{
+  color: white;
+  background-color: mediumpurple;
+}
+button{
+  border: none;
+  background:none;
+  border-radius: 50%;
+
+}
+.nav-btn:hover,.nav-btn:active{
+  color: purple;
+}
+button[disabled]:hover{
+  cursor: not-allowed;
+  color: grey;
 }

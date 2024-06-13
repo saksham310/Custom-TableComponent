@@ -3,7 +3,7 @@
   <table class="table" #table>
 
     <tr>
-
+<th><input type="checkbox"></th>
    @for(value of headers;track headers){
 
      <th (click)="onSort(value,orderBy)">{{value}} <i class={{icon}}></i></th>
@@ -11,6 +11,7 @@
     </tr>
 @for(data of newTableData;track data;let i=$index){
   <tr>
+    <td><input type="checkbox"></td>
     @for(value of headers;track headers){
 
   <td>{{data[value]}}</td>}
@@ -20,9 +21,18 @@
 
 </tr>
   </table>
-  <div class="pagination"> @for(pages of pageRange;track pages;let i=$index){
-    <button (click)="onPageChange(pages)">{{pages}}</button>
-  }</div>
+
+  <div class="pagination">
+    <button class="nav-btn" (click)="onPageChange(1)" [disabled]="startPage==1"><i class="pi pi-angle-double-left"></i></button>
+    <button class="nav-btn" (click)="onPageChange(startPage-1)" [disabled]="startPage==1"><i class="pi pi-chevron-left"></i></button>
+    @for(pages of pageRange;track pages;let i=$index){
+
+    <button (click)="onPageChange(pages)"  [class.currentPage]="pages==startPage">{{pages}}</button>
+
+  }
+    <button  class="nav-btn"  (click)="onPageChange(startPage+1)" [disabled]="startPage==totalPages"><i class="pi pi-chevron-right"></i></button>
+    <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i class="pi pi-angle-double-right"></i></button>
+  </div>
 
 <!--@for(n of test;track n){-->
 <!--  {{n}}-->

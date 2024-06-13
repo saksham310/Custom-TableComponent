@@ -14,12 +14,12 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
   @Input() rowsPerPage!:number;
-  private startPage:number=1
+  public startPage:number=1
   public totalPages!:number;
   newTableData:any[]=[];
   public orderBy = 'desc';
   icon ="pi pi-times"
-  public pageLimit=10;
+  public pageLimit=5;
   private left:number=1;
   private right:number=this.pageLimit;
   pageRange:number[]=[];
@@ -55,16 +55,17 @@ export class TableComponent {
   }
 }
   public onPageChange(start:number){
-    this.generateRange(start);
+  this.startPage=start
+    this.generateRange();
   start=this.rowsPerPage*(start-1);
   const end=start+this.rowsPerPage;
     this.newTableData=this.tableData.slice(start,end)
 
   }
 
-  calculatePageRange(currentPage:number){
-  this.left=currentPage-Math.floor(this.pageLimit/2)
-    this.right=currentPage+Math.floor(this.pageLimit/2)
+  calculatePageRange(){
+  this.left=this.startPage-Math.floor(this.pageLimit/2)
+    this.right=this.startPage+Math.floor(this.pageLimit/2)
     if(this.left<1){
       this.left=1;
       this.right=this.pageLimit;
@@ -75,8 +76,8 @@ export class TableComponent {
     }
   }
 
-  generateRange(currentPage:number){
-  this.calculatePageRange(currentPage);
+  generateRange(){
+  this.calculatePageRange();
   console.log(this.left,this.right);
     this.pageRange=[];
   for(let i=this.left;i<=this.right;i++){
