@@ -16,9 +16,10 @@ export class TableComponent {
   @Input() rowsPerPage!:number;
   public startPage:number=1
   public totalPages!:number;
+  public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
   public orderBy = 'desc';
-  icon ="pi pi-times"
+  icon ="pi pi-times";
   public pageLimit=5;
   private left:number=1;
   private right:number=this.pageLimit;
@@ -33,7 +34,7 @@ export class TableComponent {
     this.totalPages= Math.ceil(this.tableData.length/this.rowsPerPage)
     this.onPageChange(this.startPage)
     this.onSort(this.headers[1],'desc')
-    console.log(this.totalCount(this.totalPages));
+
 
   }
 
@@ -58,8 +59,8 @@ export class TableComponent {
   this.startPage=start
     this.generateRange();
   start=this.rowsPerPage*(start-1);
-  const end=start+this.rowsPerPage;
-    this.newTableData=this.tableData.slice(start,end)
+ this.end=start+this.rowsPerPage;
+    this.newTableData=this.tableData.slice(start,this.end)
 
   }
 
@@ -85,7 +86,5 @@ export class TableComponent {
 this.pageRange.push(i);
   }
   }
-  public totalCount(num:number){
-    return Array(num);
-  }
+
 }

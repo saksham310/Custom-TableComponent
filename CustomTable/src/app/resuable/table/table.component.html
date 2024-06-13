@@ -21,23 +21,22 @@
 
 </tr>
   </table>
-
+<div class="bottom-container">
   <div class="pagination">
     <button class="nav-btn" (click)="onPageChange(1)" [disabled]="startPage==1"><i class="pi pi-angle-double-left"></i></button>
     <button class="nav-btn" (click)="onPageChange(startPage-1)" [disabled]="startPage==1"><i class="pi pi-chevron-left"></i></button>
     @for(pages of pageRange;track pages;let i=$index){
 
-    <button (click)="onPageChange(pages)"  [class.currentPage]="pages==startPage">{{pages}}</button>
+      <button (click)="onPageChange(pages)"  [class.currentPage]="pages==startPage">{{pages}}</button>
 
-  }
+    }
     <button  class="nav-btn"  (click)="onPageChange(startPage+1)" [disabled]="startPage==totalPages"><i class="pi pi-chevron-right"></i></button>
     <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i class="pi pi-angle-double-right"></i></button>
   </div>
+  <div class="totalPage">
+    <p>Showing results {{startPage}} to {{end}} of {{tableData.length}}</p>
+  </div>
+</div>
 
-<!--@for(n of test;track n){-->
-<!--  {{n}}-->
-<!--}-->
-<!--  <button (click)="onPageChange(2)">2</button>-->
-<!--  <button (click)="onPageChange(3)">3</button>-->
-<!--  <button (click)="onPageChange(4)">4</button>-->
+
 </div>
