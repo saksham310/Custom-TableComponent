@@ -8,8 +8,8 @@
   box-shadow: rgba(149, 157, 165, 0.6) 80px 0px 24px;
   z-index: 2;
   position: fixed;
-  bottom: 0%;
-  left: 0%;
+  bottom: 0;
+  left: 0;
   width: 100%;
   background-color: white;
   display: flex;
@@ -28,7 +28,7 @@
   width: 100%;
   table-layout: auto;
   height: calc(100% - 63px);
-  margin-bottom: 65.5px;
+  margin-bottom: 66px;
 }
 
 
@@ -38,11 +38,12 @@
   align-items: center;
   gap:1rem;
   flex:1;
+  margin-left: 6.25rem;
 
 }
 .wrapper{
   padding: 1.8rem;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 .currentPage{
   color: white;
