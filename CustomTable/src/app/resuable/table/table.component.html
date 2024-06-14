@@ -2,7 +2,7 @@
   <table class="table" #table>
 
     <tr>
-<th><input type="checkbox" (click)="isSelected=!isSelected"  ></th>
+<th><input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
    @for(value of headers;track headers){
 
      <th (click)="onSort(value,orderBy)">{{value}} <i class={{icon}}></i></th>
@@ -10,7 +10,7 @@
     </tr>
 @for(data of newTableData;track data;let i=$index){
   <tr>
-    <td><input type="checkbox" [checked]="isSelected"></td>
+    <td><input type="checkbox"  [checked]="isSelected"></td>
     @for(value of headers;track headers){
 
   <td>{{data[value]}}</td>}

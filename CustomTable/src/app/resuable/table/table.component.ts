@@ -1,11 +1,12 @@
 import {Component, ElementRef, Input, SimpleChange, ViewChild} from '@angular/core';
-import {JsonPipe} from "@angular/common";
+import {JsonPipe,CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [
-    JsonPipe
+  imports: [CommonModule,
+    JsonPipe, FormsModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
