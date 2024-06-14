@@ -14,17 +14,18 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
   @Input() rowsPerPage!:number;
+@ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
   public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
   public orderBy = 'desc';
-  icon ="pi pi-times";
-  public pageLimit=5;
+  public icon ="pi pi-times";
+  public pageLimit=6;
   private left:number=1;
   private right:number=this.pageLimit;
+  public isSelected=false;
   pageRange:number[]=[];
-@ViewChild('table') table!:ElementRef
 
 
 

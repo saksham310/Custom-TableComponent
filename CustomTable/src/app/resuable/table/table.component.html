@@ -1,9 +1,8 @@
 <div class="wrapper">
-
   <table class="table" #table>
 
     <tr>
-<th><input type="checkbox"></th>
+<th><input type="checkbox" (click)="isSelected=!isSelected"  ></th>
    @for(value of headers;track headers){
 
      <th (click)="onSort(value,orderBy)">{{value}} <i class={{icon}}></i></th>
@@ -11,7 +10,7 @@
     </tr>
 @for(data of newTableData;track data;let i=$index){
   <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" [checked]="isSelected"></td>
     @for(value of headers;track headers){
 
   <td>{{data[value]}}</td>}
@@ -34,9 +33,8 @@
     <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i class="pi pi-angle-double-right"></i></button>
   </div>
   <div class="totalPage">
-    <p>Showing results {{startPage}} to {{end}} of {{tableData.length}}</p>
+    <p>Showing results {{rowsPerPage*(startPage-1)+1}} to {{end}} of {{tableData.length}}</p>
   </div>
 </div>
-
 
 </div>

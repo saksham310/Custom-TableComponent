@@ -1,22 +1,44 @@
+.wrapper{
+
+  position: relative;
+}
+
+.bottom-container{
+  padding: 24px;
+  box-shadow: rgba(149, 157, 165, 0.6) 80px 0px 24px;
+  z-index: 2;
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .table,th,td{
   border: 1px solid black;
   border-collapse: collapse;
   padding: 1rem;
+  text-align: left;
 }
 .table{
   width: 100%;
   table-layout: auto;
+  height: calc(100% - 63px);
+  margin-bottom: 65.5px;
 }
-th{
-  min-width: 80px;
-}
+
+
 .pagination{
-  margin-top: 1.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap:1rem;
   flex:1;
+
 }
 .wrapper{
   padding: 1.8rem;
@@ -25,11 +47,12 @@ th{
 .currentPage{
   color: white;
   background-color: mediumpurple;
+  padding: 8px 12px;
+  border-radius: 50%;
 }
 button{
   border: none;
   background:none;
-  border-radius: 50%;
   cursor: pointer;
   font-size: 15px;
 
@@ -41,11 +64,7 @@ button[disabled]:hover{
   cursor: not-allowed;
   color: grey;
 }
-.bottom-container{
-  display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-}
+
 .totalPage{
   color: grey;
   font-size: 14px;
