@@ -13,7 +13,9 @@
     <td><input type="checkbox"  [checked]="isSelected"></td>
     @for(value of headers;track headers){
 
-  <td>{{data[value]}}</td>}
+<!--  <td>{{data[value]}}</td>-->
+      <td>{{checkNested(data,value)}}</td>
+    }
   </tr>
 }
 <tr>

@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DataService {
 
-  private API_URL="https://jsonplaceholder.typicode.com/todos";
+  private API_URL="https://jsonplaceholder.typicode.com/users";
 
   constructor(private http:HttpClient) { }
 

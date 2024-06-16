@@ -18,17 +18,24 @@
 }
 
 
-.table,th,td{
-  border: 1px solid black;
+table,th,td{
+  border: 0.1px solid grey;
   border-collapse: collapse;
   padding: 1rem;
   text-align: left;
 }
-.table{
+th{
+
+  color: white;
+  background-color: mediumpurple;
+}
+table{
   width: 100%;
+border: 0px solid red;
   table-layout: auto;
   height: calc(100% - 63px);
   margin-bottom: 66px;
+  border-spacing: 30px;
 }
 
 

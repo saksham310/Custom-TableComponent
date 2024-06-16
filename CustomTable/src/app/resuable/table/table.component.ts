@@ -15,6 +15,8 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
   @Input() rowsPerPage!:number;
+  @Input() pageLimit=6;
+  @Input() nestedKey?:{[key: string]: any};
 @ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
@@ -22,7 +24,6 @@ export class TableComponent {
   newTableData:any[]=[];
   public orderBy = 'desc';
   public icon ="pi pi-times";
-  public pageLimit=6;
   private left:number=1;
   private right:number=this.pageLimit;
   public isSelected=false;
@@ -30,7 +31,12 @@ export class TableComponent {
 
 
 
+
   ngOnChanges(changes:SimpleChange){
+    for(let k in this.nestedKey){
+      console.log(this.nestedKey[k])
+    }
+
   if (changes.hasOwnProperty('tableData')) {
 
     this.totalPages= Math.ceil(this.tableData.length/this.rowsPerPage)
@@ -89,4 +95,22 @@ this.pageRange.push(i);
   }
   }
 
+public checkNested(data:{[key: string]: any},value:string) {
+  console.log(typeof (data[value]))
+  if (typeof (data[value]) !== "object") {
+    console.log('normal executed')
+
+    return data[value]
+  }
+  else {
+
+    console.log(typeof (data[value]))
+    for (let k in this.nestedKey) {
+      if (k === value) {
+        const nk = this.nestedKey[k];
+        return data[value][nk]
+      }
+    }
+  }
+}
 }

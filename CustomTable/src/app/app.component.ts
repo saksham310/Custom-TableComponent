@@ -15,6 +15,10 @@ export class AppComponent {
   tableData:any[]=[]
   tableHeader:string[]=[]
   private dataService:DataService=inject(DataService)
+  obj={
+    'company':'name',
+    'address':'street'
+  }
 
   ngOnInit(){
 this.dataService.getData().subscribe({
