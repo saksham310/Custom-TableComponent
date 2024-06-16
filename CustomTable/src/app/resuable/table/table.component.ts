@@ -95,22 +95,21 @@ this.pageRange.push(i);
   }
   }
 
-public checkNested(data:{[key: string]: any},value:string) {
-  console.log(typeof (data[value]))
+public checkNested(data:{[key: string]: any},value:string):string {
+
   if (typeof (data[value]) !== "object") {
-    console.log('normal executed')
 
     return data[value]
   }
   else {
 
-    console.log(typeof (data[value]))
     for (let k in this.nestedKey) {
       if (k === value) {
         const nk = this.nestedKey[k];
-        return data[value][nk]
+       return this.checkNested(data[value], nk);
       }
     }
   }
+  return 'no data'
 }
 }
