@@ -95,7 +95,7 @@ this.pageRange.push(i);
   }
   }
 
-public checkNested(data:{[key: string]: any},value:string):string {
+public checkNested(data:{[key: string]: string|number|boolean|object},value:string):string|number|boolean|object {
 
   if (typeof (data[value]) !== "object") {
 
@@ -106,7 +106,7 @@ public checkNested(data:{[key: string]: any},value:string):string {
     for (let k in this.nestedKey) {
       if (k === value) {
         const nk = this.nestedKey[k];
-       return this.checkNested(data[value], nk);
+       return this.checkNested(data[value] as {[key: string]: string|number|boolean|object}, nk);
       }
     }
   }
