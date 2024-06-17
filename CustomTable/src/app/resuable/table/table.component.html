@@ -21,10 +21,9 @@
   <tr>
     @if(showCheckBox){
     <td><input type="checkbox"  [checked]="isSelected"></td>}
-    @for(value of headers;track headers){
+    @for(value of headers;track headers;let j=$index){
 
-<!--  <td>{{data[value]}}</td>-->
-      <td>{{checkNested(data,value)}}</td>
+      <td (click)="showFocus(value,i+j)" [class.highlighted]="value===isFocused && (i+j)===focusedRowIndex">{{checkNested(data,value)}}</td>
     }
   </tr>
 }

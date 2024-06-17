@@ -18,6 +18,7 @@ export class TableComponent {
   @Input() pageLimit=6;
   @Input() nestedKey?:{[key: string]: any};
   @Input() showCheckBox:boolean=false
+  @Input() enableFocus:boolean=false
 @ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
@@ -29,7 +30,8 @@ export class TableComponent {
   private right:number=this.pageLimit;
   public isSelected=false;
   pageRange:number[]=[];
-
+public isFocused:string=''
+  public focusedRowIndex:number=0;
 
 
 
@@ -122,4 +124,10 @@ public checkNested(data:{[key: string]: string|number|boolean|object},value:stri
   }
   return 'no data'
 }
+
+public  showFocus(val:string,index:number){
+    if(this.enableFocus){
+  this.isFocused=val;
+  this.focusedRowIndex=index;
 }
+}}

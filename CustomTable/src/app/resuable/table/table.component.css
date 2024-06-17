@@ -83,3 +83,7 @@ button[disabled]:hover{
   color: grey;
   font-size: 14px;
 }
+.highlighted{
+  background-color: #e4d8ff;
+
+}
