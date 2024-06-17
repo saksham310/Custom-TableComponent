@@ -17,20 +17,21 @@ export class TableComponent {
   @Input() rowsPerPage!:number;
   @Input() pageLimit=6;
   @Input() nestedKey?:{[key: string]: any};
+  @Input() showCheckBox:boolean=false
+  @Input() enableFocus:boolean=false
 @ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
   public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
-  public orderBy = 'desc';
   public order:{[key:string]:string}={}
   public iconStyle:{[key:string]:string}={}
-  public icon ="pi pi-times";
   private left:number=1;
   private right:number=this.pageLimit;
   public isSelected=false;
   pageRange:number[]=[];
-
+public isFocused:string=''
+  public focusedRowIndex:number=0;
 
 
 
@@ -83,7 +84,7 @@ export class TableComponent {
 
   }
 
-  calculatePageRange(){
+  private calculatePageRange(){
   this.left=this.startPage-Math.floor(this.pageLimit/2)
     this.right=this.startPage+Math.floor(this.pageLimit/2)
     if(this.left<1){
@@ -96,7 +97,7 @@ export class TableComponent {
     }
   }
 
-  generateRange(){
+  private generateRange(){
   this.calculatePageRange();
   console.log(this.left,this.right);
     this.pageRange=[];
@@ -123,4 +124,10 @@ public checkNested(data:{[key: string]: string|number|boolean|object},value:stri
   }
   return 'no data'
 }
+
+public  showFocus(val:string,index:number){
+    if(this.enableFocus){
+  this.isFocused=val;
+  this.focusedRowIndex=index;
 }
+}}

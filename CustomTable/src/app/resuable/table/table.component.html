@@ -2,21 +2,28 @@
   <table class="table" #table>
 <thead>
     <tr>
-<th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      @if(showCheckBox){
+        <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      }
+
    @for(value of headers;track headers){
 
-     <th (click)="onSort(value,order[value])"><strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i></th>
+     <th (click)="onSort(value,order[value])">
+       <div class="title">
+         <strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i>
+       </div>
+      </th>
    }
     </tr>
 </thead>
     <tbody>
 @for(data of newTableData;track data;let i=$index){
   <tr>
-    <td><input type="checkbox"  [checked]="isSelected"></td>
-    @for(value of headers;track headers){
+    @if(showCheckBox){
+    <td><input type="checkbox"  [checked]="isSelected"></td>}
+    @for(value of headers;track headers;let j=$index){
 
-<!--  <td>{{data[value]}}</td>-->
-      <td>{{checkNested(data,value)}}</td>
+      <td (click)="showFocus(value,i+j)" [class.highlighted]="value===isFocused && (i+j)===focusedRowIndex">{{checkNested(data,value)}}</td>
     }
   </tr>
 }
