@@ -23,6 +23,8 @@ export class TableComponent {
   public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
   public orderBy = 'desc';
+  public order:{[key:string]:string}={}
+  public iconStyle:{[key:string]:string}={}
   public icon ="pi pi-times";
   private left:number=1;
   private right:number=this.pageLimit;
@@ -45,18 +47,30 @@ export class TableComponent {
 
 }
   public onSort(value: string, orderType: string) {
-    if(orderType=='desc'){
-      this.orderBy='asc'
-      this.newTableData=this.newTableData.sort((a,b):number=>{
-        return a[value]>b[value]?1:-1;
+    console.log('value',value)
+    console.log('order',orderType)
+    for(let k in this.headers){
+      const current=this.headers[k]
+      if(current===value){
+        if(orderType=='desc'){
+          this.order[current]='asc'
+          this.iconStyle[current]="pi pi-sort-amount-up"
+          console.log("icon",this.iconStyle[current])
+          this.newTableData=this.newTableData.sort((a,b):number=>{
+            return a[value]>b[value]?1:-1;
 
-      })
-    }
-    else{
-      this.orderBy='desc'
-      this.newTableData=this.newTableData.sort((a,b):number=>{
-        return a[value]<b[value]?1:-1;
-    })
+          })
+        }
+        else{
+          this.order[value]='desc'
+          this.iconStyle[value]="pi pi-sort-amount-down"
+          this.newTableData=this.newTableData.sort((a,b):number=>{
+            return a[value]<b[value]?1:-1;
+          })
+      }
+    }else{
+      this.order[current]="desc"
+      this.iconStyle[current]="pi pi-sort-alt"}
 
   }
 }

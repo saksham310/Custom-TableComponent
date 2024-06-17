@@ -5,7 +5,7 @@
 <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
    @for(value of headers;track headers){
 
-     <th (click)="onSort(value,orderBy)">{{value}} <i class={{icon}}></i></th>
+     <th (click)="onSort(value,order[value])">{{value}} <i class={{iconStyle[value]}}></i></th>
    }
     </tr>
 @for(data of newTableData;track data;let i=$index){
