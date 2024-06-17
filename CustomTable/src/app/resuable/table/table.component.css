@@ -26,7 +26,14 @@ table,th,td{
 }
 th{
   color: white;
+  min-width: 100px;
   background-color: mediumpurple;
+}
+
+.title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 table{
   width: 100%;

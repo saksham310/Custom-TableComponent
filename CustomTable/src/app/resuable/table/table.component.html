@@ -2,17 +2,25 @@
   <table class="table" #table>
 <thead>
     <tr>
-<th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      @if(showCheckBox){
+        <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      }
+
    @for(value of headers;track headers){
 
-     <th (click)="onSort(value,order[value])"><strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i></th>
+     <th (click)="onSort(value,order[value])">
+       <div class="title">
+         <strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i>
+       </div>
+      </th>
    }
     </tr>
 </thead>
     <tbody>
 @for(data of newTableData;track data;let i=$index){
   <tr>
-    <td><input type="checkbox"  [checked]="isSelected"></td>
+    @if(showCheckBox){
+    <td><input type="checkbox"  [checked]="isSelected"></td>}
     @for(value of headers;track headers){
 
 <!--  <td>{{data[value]}}</td>-->
