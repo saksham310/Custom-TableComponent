@@ -19,6 +19,7 @@ export class TableComponent {
   @Input() nestedKey?:{[key: string]: any};
   @Input() showCheckBox:boolean=false
   @Input() enableFocus:boolean=false
+  @Input() focusColor:string='#e4d8ff'
 @ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
