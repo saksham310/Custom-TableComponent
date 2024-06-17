@@ -35,7 +35,7 @@
     <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i class="pi pi-angle-double-right"></i></button>
   </div>
   <div class="totalPage">
-    <p>Showing results {{rowsPerPage*(startPage-1)+1}} to {{end}} of {{tableData.length}}</p>
+    <p>Showing results {{rowsPerPage*(startPage-1)+1}} to {{end>tableData.length?tableData.length:end}} of {{tableData.length}}</p>
   </div>
 </div>
 

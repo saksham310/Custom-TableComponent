@@ -5,7 +5,7 @@
 
 .bottom-container{
   padding: 24px;
-  box-shadow: rgba(149, 157, 165, 0.6) 80px 0px 24px;
+  box-shadow: rgba(149, 157, 165, 0.6) 80px 0 24px;
   z-index: 2;
   position: fixed;
   bottom: 0;
@@ -25,13 +25,12 @@ table,th,td{
   text-align: left;
 }
 th{
-
   color: white;
   background-color: mediumpurple;
 }
 table{
   width: 100%;
-border: 0px solid red;
+border: 0 solid red;
   table-layout: auto;
   height: calc(100% - 63px);
   margin-bottom: 66px;

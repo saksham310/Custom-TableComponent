@@ -33,9 +33,6 @@ export class TableComponent {
 
 
   ngOnChanges(changes:SimpleChange){
-    for(let k in this.nestedKey){
-      console.log(this.nestedKey[k])
-    }
 
   if (changes.hasOwnProperty('tableData')) {
 
