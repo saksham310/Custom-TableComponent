@@ -18,12 +18,12 @@
 </thead>
     <tbody>
 @for(data of newTableData;track data;let i=$index){
-  <tr>
+  <tr (click)="showFocus(data,i)" [ngStyle]="{'background':data===isFocused && (i)===focusedRowIndex?focusColor:'none'}">
     @if(showCheckBox){
     <td><input type="checkbox"  [checked]="isSelected"></td>}
     @for(value of headers;track headers;let j=$index){
 
-      <td (click)="showFocus(value,i+j)" [ngStyle]="{'background':value===isFocused && (i+j)===focusedRowIndex?focusColor:'none'}">{{checkNested(data,value)}}</td>
+      <td >{{checkNested(data,value)}}</td>
     }
   </tr>
 }

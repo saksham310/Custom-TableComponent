@@ -1,12 +1,14 @@
 import {Component, ElementRef, Input, SimpleChange, ViewChild} from '@angular/core';
 import {JsonPipe,CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {NestedData} from "../../models/nested-data";
+import {OrderInterface} from "../../models/order.interface";
 
 @Component({
   selector: 'app-table',
   standalone: true,
   imports: [CommonModule,
-    JsonPipe, FormsModule
+    FormsModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
@@ -17,7 +19,7 @@ export class TableComponent {
   @Input() rowsPerPage!:number;
   @Input() pageLimit=6;
   @Input() nestedKey?:{[key: string]: any};
-  @Input() showCheckBox:boolean=false
+  @Input() showCheckBox:boolean=false;
   @Input() enableFocus:boolean=false
   @Input() focusColor:string='#e4d8ff'
 @ViewChild('table') table!:ElementRef
@@ -25,8 +27,8 @@ export class TableComponent {
   public totalPages!:number;
   public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
-  public order:{[key:string]:string}={}
-  public iconStyle:{[key:string]:string}={}
+  public order:OrderInterface={}
+  public iconStyle:OrderInterface={}
   private left:number=1;
   private right:number=this.pageLimit;
   public isSelected=false;
@@ -108,7 +110,7 @@ this.pageRange.push(i);
   }
   }
 
-public checkNested(data:{[key: string]: string|number|boolean|object},value:string):string|number|boolean|object {
+public checkNested(data:NestedData,value:string):string|NestedData {
 
   if (typeof (data[value]) !== "object") {
 
@@ -119,7 +121,7 @@ public checkNested(data:{[key: string]: string|number|boolean|object},value:stri
     for (let k in this.nestedKey) {
       if (k === value) {
         const nk = this.nestedKey[k];
-       return this.checkNested(data[value] as {[key: string]: string|number|boolean|object}, nk);
+       return this.checkNested(data[value] as NestedData, nk);
       }
     }
   }
