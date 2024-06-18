@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, SimpleChange, ViewChild} from '@angular/core';
-import {JsonPipe,CommonModule} from "@angular/common";
+import {Component, ElementRef, EventEmitter, Input, Output, SimpleChange, ViewChild} from '@angular/core';
+import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NestedData} from "../../models/nested-data";
 import {OrderInterface} from "../../models/order.interface";
@@ -22,6 +22,7 @@ export class TableComponent {
   @Input() showCheckBox:boolean=false;
   @Input() enableFocus:boolean=false
   @Input() focusColor:string='#e4d8ff'
+  @Output() rowEmitter=new EventEmitter()
 @ViewChild('table') table!:ElementRef
   public startPage:number=1
   public totalPages!:number;
@@ -51,15 +52,14 @@ public isFocused:string=''
 
 }
   public onSort(value: string, orderType: string) {
-    console.log('value',value)
-    console.log('order',orderType)
+
     for(let k in this.headers){
       const current=this.headers[k]
       if(current===value){
         if(orderType=='desc'){
           this.order[current]='asc'
           this.iconStyle[current]="pi pi-sort-amount-up"
-          console.log("icon",this.iconStyle[current])
+
           this.newTableData=this.newTableData.sort((a,b):number=>{
             return a[value]>b[value]?1:-1;
 
@@ -102,7 +102,7 @@ public isFocused:string=''
 
   private generateRange(){
   this.calculatePageRange();
-  console.log(this.left,this.right);
+
     this.pageRange=[];
   for(let i=this.left;i<=this.right;i++){
 
@@ -129,6 +129,7 @@ public checkNested(data:NestedData,value:string):string|NestedData {
 }
 
 public  showFocus(val:string,index:number){
+    this.rowEmitter.emit(val)
     if(this.enableFocus){
   this.isFocused=val;
   this.focusedRowIndex=index;

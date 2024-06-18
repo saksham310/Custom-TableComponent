@@ -1,7 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {Data, RouterOutlet} from '@angular/router';
+import { RouterOutlet} from '@angular/router';
 import {TableComponent} from "./resuable/table/table.component";
 import {DataService} from "./services/data.service";
+
 
 @Component({
   selector: 'app-root',
@@ -25,11 +26,11 @@ this.dataService.getData().subscribe({
   next:(res:any)=>{this.tableData=res
     this.tableHeader=Object.keys(this.tableData[0])
     console.log(res)}
-
 })
-
-
-
   }
-
+public  outputReceiver(e:Event){
+  console.log(e)
 }
+}
+
+
