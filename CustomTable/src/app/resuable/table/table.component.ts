@@ -3,12 +3,13 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NestedData} from "../../models/nested-data";
 import {OrderInterface} from "../../models/order.interface";
+import {TableActionsComponent} from "../table-actions/table-actions.component";
 
 @Component({
   selector: 'app-table',
   standalone: true,
   imports: [CommonModule,
-    FormsModule
+    FormsModule, TableActionsComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
@@ -20,22 +21,24 @@ export class TableComponent {
   @Input() pageLimit=6;
   @Input() nestedKey?:{[key: string]: any};
   @Input() showCheckBox:boolean=false;
-  @Input() enableFocus:boolean=false
-  @Input() focusColor:string='#e4d8ff'
-  @Output() rowEmitter=new EventEmitter()
-@ViewChild('table') table!:ElementRef
-  public startPage:number=1
+  @Input() enableFocus:boolean=false;
+  @Input() focusColor:string='#e4d8ff';
+  @Output() rowEmitter=new EventEmitter();
+@ViewChild('table') table!:ElementRef;
+  public startPage:number=1;
   public totalPages!:number;
   public end:number=this.startPage+this.rowsPerPage;
   newTableData:any[]=[];
-  public order:OrderInterface={}
-  public iconStyle:OrderInterface={}
+  public order:OrderInterface={};
+  public iconStyle:OrderInterface={};
   private left:number=1;
   private right:number=this.pageLimit;
   public isSelected=false;
   pageRange:number[]=[];
-public isFocused:string=''
+public isFocused:string='';
   public focusedRowIndex:number=0;
+  public selectedRow:string[]=[]
+
 
 
 
@@ -129,7 +132,8 @@ public checkNested(data:NestedData,value:string):string|NestedData {
 }
 
 public  showFocus(val:string,index:number){
-    this.rowEmitter.emit(val)
+    this.selectedRow.push(val);
+    this.rowEmitter.emit(this.selectedRow)
     if(this.enableFocus){
   this.isFocused=val;
   this.focusedRowIndex=index;

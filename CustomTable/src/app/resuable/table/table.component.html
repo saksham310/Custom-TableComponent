@@ -1,4 +1,5 @@
 <div class="wrapper">
+  <app-table-actions></app-table-actions>
   <table class="table" #table>
 <thead>
     <tr>
@@ -23,7 +24,7 @@
     <td><input type="checkbox"  [checked]="isSelected"></td>}
     @for(value of headers;track headers;let j=$index){
 
-      <td >{{checkNested(data,value)}}</td>
+      <td>{{checkNested(data,value)}}</td>
     }
   </tr>
 }

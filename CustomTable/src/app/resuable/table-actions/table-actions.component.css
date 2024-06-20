@@ -1,0 +1,43 @@
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+}
+.cta-btn{
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+}
+.input-box{
+  position: relative;
+}
+.pi-search{
+  position: absolute;
+  top:15%;
+  right: 5%;
+}
+.input-box input{
+  padding:3px;
+  text-align: left;
+}
+.cta-btn{
+  font-size: 15px;
+}
+.filter,.delete{
+display: flex;
+  justify-content:space-between;
+
+  width: 84px;
+  padding: 0.4rem;
+  align-content: end;
+  align-items: center;
+  border-radius: 5px;
+}
+.delete{
+color: white;
+  background-color: #b60404;
+}
+.filter{
+  border: 1px solid grey;
+}
