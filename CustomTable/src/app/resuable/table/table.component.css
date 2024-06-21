@@ -1,9 +1,9 @@
-.wrapper{
+.wrapper {
 
   position: relative;
 }
 
-.bottom-container{
+.bottom-container {
   padding: 24px;
   box-shadow: rgba(149, 157, 165, 0.6) 80px 0 24px;
   z-index: 2;
@@ -18,26 +18,28 @@
 }
 
 
-table,th,td{
+table, th, td {
   border: 0.1px solid grey;
   border-collapse: collapse;
   padding: 1rem;
   text-align: left;
 }
-th{
+
+th {
   color: white;
   min-width: 100px;
   background-color: mediumpurple;
 }
 
-.title{
+.title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-table{
+
+table {
   width: 100%;
-border: 0 solid red;
+  border: 0 solid red;
   table-layout: auto;
   height: calc(100% - 63px);
   margin-bottom: 66px;
@@ -45,45 +47,47 @@ border: 0 solid red;
 }
 
 
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:1rem;
-  flex:1;
+  gap: 1rem;
+  flex: 1;
   margin-left: 6.25rem;
 
 }
-.wrapper{
+
+.wrapper {
   padding: 1.8rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
-.currentPage{
+
+.currentPage {
   color: white;
   background-color: mediumpurple;
   padding: 8px 12px;
   border-radius: 50%;
 }
-button{
+
+button {
   border: none;
-  background:none;
+  background: none;
   cursor: pointer;
   font-size: 15px;
 
 }
-.nav-btn:hover,.nav-btn:active{
+
+.nav-btn:hover, .nav-btn:active {
   color: purple;
 }
-button[disabled]:hover{
+
+button[disabled]:hover {
   cursor: not-allowed;
   color: grey;
 }
 
-.totalPage{
+.totalPage {
   color: grey;
   font-size: 14px;
 }
-.highlighted{
-  background-color: #e4d8ff;
 
-}

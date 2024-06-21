@@ -1,50 +1,58 @@
 <div class="wrapper">
+  <app-table-actions></app-table-actions>
   <table class="table" #table>
-<thead>
+    <thead>
     <tr>
       @if(showCheckBox){
-        <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
       }
 
-   @for(value of headers;track headers){
 
-     <th (click)="onSort(value,order[value])">
-       <div class="title">
-         <strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i>
+      @for(value of headers;track headers){
+
+      <th (click)="onSort(value,order[value])">
+        <div class="title">
+          <strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i>
        </div>
       </th>
-   }
+      }
     </tr>
-</thead>
+    </thead>
     <tbody>
-@for(data of newTableData;track data;let i=$index){
-  <tr>
+    @for(data of newTableData;track data;let i=$index){
+    <tr (change)="showFocus(data,i)" [ngStyle]="{'background':selectedRow.includes(data) && focusedRowIndex.includes(i)?focusColor:'none'
+    }">
     @if(showCheckBox){
-    <td><input type="checkbox"  [checked]="isSelected"></td>}
+    <td><input type="checkbox" [checked]="isSelected"></td>
+    }
     @for(value of headers;track headers;let j=$index){
 
-      <td (click)="showFocus(value,i+j)" [class.highlighted]="value===isFocused && (i+j)===focusedRowIndex">{{checkNested(data,value)}}</td>
+    <td>{{ checkNested(data, value) }}</td>
     }
-  </tr>
-}
+    </tr>}
     </tbody>
 
   </table>
-<div class="bottom-container">
-  <div class="pagination">
-    <button class="nav-btn" (click)="onPageChange(1)" [disabled]="startPage==1"><i class="pi pi-angle-double-left"></i></button>
-    <button class="nav-btn" (click)="onPageChange(startPage-1)" [disabled]="startPage==1"><i class="pi pi-chevron-left"></i></button>
-    @for(pages of pageRange;track pages;let i=$index){
+  <div class="bottom-container">
+    <div class="pagination">
+      <button class="nav-btn" (click)="onPageChange(1)" [disabled]="startPage==1"><i
+        class="pi pi-angle-double-left"></i></button>
+      <button class="nav-btn" (click)="onPageChange(startPage-1)" [disabled]="startPage==1"><i
+        class="pi pi-chevron-left"></i></button>
+      @for(pages of pageRange;track pages;let i=$index){
 
       <button (click)="onPageChange(pages)"  [class.currentPage]="pages==startPage">{{pages}}</button>
 
-    }
-    <button  class="nav-btn"  (click)="onPageChange(startPage+1)" [disabled]="startPage==totalPages"><i class="pi pi-chevron-right"></i></button>
-    <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i class="pi pi-angle-double-right"></i></button>
+      }
+      <button class="nav-btn" (click)="onPageChange(startPage+1)" [disabled]="startPage==totalPages"><i
+        class="pi pi-chevron-right"></i></button>
+      <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i
+        class="pi pi-angle-double-right"></i></button>
+    </div>
+    <div class="totalPage">
+      <p>Showing results {{ rowsPerPage * (startPage - 1) + 1 }}
+        to {{ end > tableData.length ? tableData.length : end }} of {{ tableData.length }}</p>
+    </div>
   </div>
-  <div class="totalPage">
-    <p>Showing results {{rowsPerPage*(startPage-1)+1}} to {{end>tableData.length?tableData.length:end}} of {{tableData.length}}</p>
-  </div>
-</div>
 
 </div>
