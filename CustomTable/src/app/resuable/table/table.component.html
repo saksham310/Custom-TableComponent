@@ -7,6 +7,7 @@
       <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
       }
 
+
       @for(value of headers;track headers){
 
       <th (click)="onSort(value,order[value])">
@@ -28,8 +29,7 @@
 
     <td>{{ checkNested(data, value) }}</td>
     }
-    </tr>
-    }
+    </tr>}
     </tbody>
 
   </table>

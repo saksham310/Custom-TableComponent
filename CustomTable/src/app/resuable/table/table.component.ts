@@ -157,7 +157,14 @@ export class TableComponent {
 
   // function to highlight and emit the value of selected row
   public showFocus(val: string, index: number) {
-    this.selectedRow.push(val);
+
+    if(this.selectedRow.includes(val)){
+      const valId=this.selectedRow.indexOf(val);
+      this.selectedRow.splice(valId,1);
+    }else{
+      this.selectedRow.push(val);
+    }
+
     this.rowEmitter.emit(this.selectedRow)
     if (this.enableFocus) {
       this.isFocused = val;
