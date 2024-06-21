@@ -46,8 +46,7 @@ export class TableComponent {
 // @row selection
   public isSelected = false;
 
-  public isFocused: string = '';
-  public focusedRowIndex: number = 0;
+  public focusedRowIndex: number[] = [];
   public selectedRow: string[] = [];
 
 
@@ -167,8 +166,7 @@ export class TableComponent {
 
     this.rowEmitter.emit(this.selectedRow)
     if (this.enableFocus) {
-      this.isFocused = val;
-      this.focusedRowIndex = index;
+      this.focusedRowIndex.push(index);
     }
   }
 }
