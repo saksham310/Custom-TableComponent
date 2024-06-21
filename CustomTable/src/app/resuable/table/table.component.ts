@@ -1,9 +1,20 @@
-import {Component, ElementRef, EventEmitter, Input, Output, SimpleChange, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NestedData} from "../../models/nested-data";
 import {OrderInterface} from "../../models/order.interface";
 import {TableActionsComponent} from "../table-actions/table-actions.component";
+import {CommonDataInterface} from "../../models/common-data.interface";
 
 @Component({
   selector: 'app-table',
@@ -14,8 +25,18 @@ import {TableActionsComponent} from "../table-actions/table-actions.component";
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent {
+export class TableComponent implements OnInit,OnChanges{
 
+  public data:CommonDataInterface={
+    currentData:[],
+    startPage:1,
+    endPage:0,
+    totalPages:1,
+    pageRange:[],
+    leftMax:1,
+    rightMax:0
+
+  }
   // @ Receiving data from parent
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
@@ -30,16 +51,9 @@ export class TableComponent {
   // @ getting table element reference
   @ViewChild('table') table!: ElementRef;
 
-  //@Pagination
-  public startPage: number = 1;
-  public totalPages!: number;
-  public end: number = this.startPage + this.rowsPerPage;
-  private left: number = 1;
-  private right: number = this.pageLimit;
-  pageRange: number[] = [];
 
   // @Data display
-  newTableData: any[] = [];
+
   public order: OrderInterface = {};
   public iconStyle: OrderInterface = {};
 
@@ -50,15 +64,22 @@ export class TableComponent {
   public selectedRow: string[] = [];
 
 
-  ngOnChanges(changes: SimpleChange) {
+  ngOnInit(){
+    this.data.endPage=this.data.startPage+this.pageLimit;
+    this.data.rightMax=this.pageLimit
 
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('tableData')) {
 
-      //calculate the total pages of data
-      this.totalPages = Math.ceil(this.tableData.length / this.rowsPerPage);
 
-      this.onPageChange(this.startPage);
+      this.data.totalPages = Math.ceil(this.tableData.length / this.rowsPerPage);
+      this.onPageChange(this.data.startPage);
       this.onSort(this.headers[1], 'desc');
+
+
 
 
     }
@@ -78,14 +99,14 @@ export class TableComponent {
           this.iconStyle[current] = "pi pi-sort-amount-up";
 
           //update the table data array with sorted data
-          this.newTableData = this.newTableData.sort((a, b): number => {
+          this.data.currentData = this.data.currentData.sort((a, b): number => {
             return a[value] > b[value] ? 1 : -1;
 
           })
         } else {
           this.order[value] = 'desc';
           this.iconStyle[value] = "pi pi-sort-amount-down";
-          this.newTableData = this.newTableData.sort((a, b): number => {
+          this.data.currentData = this.data.currentData.sort((a, b): number => {
             return a[value] < b[value] ? 1 : -1;
           })
         }
@@ -101,36 +122,45 @@ export class TableComponent {
 
   // slices the original table data based on start and end index
   public onPageChange(start: number) {
-    this.startPage = start
+    this.data.startPage = start
     this.generateRange();
     start = this.rowsPerPage * (start - 1);
-    this.end = start + this.rowsPerPage;
-    this.newTableData = this.tableData.slice(start, this.end)
+    this.data.endPage = start + this.rowsPerPage;
+    this.data.currentData = this.tableData.slice(start, this.data.endPage)
+
 
   }
 
   // calculates the pagination range
   private calculatePageRange() {
-    this.left = this.startPage - Math.floor(this.pageLimit / 2)
-    this.right = this.startPage + Math.floor(this.pageLimit / 2)
-    if (this.left < 1) {
-      this.left = 1;
-      this.right = this.pageLimit;
+    this.data.leftMax = this.data.startPage - Math.floor(this.pageLimit / 2)
+    this.data.rightMax = this.data.startPage + Math.floor(this.pageLimit / 2)
+
+
+    if (this.data.leftMax < 1) {
+
+      this.data.leftMax = 1;
+      this.data.rightMax = this.pageLimit;
+
     }
-    if (this.right > this.totalPages) {
-      this.right = this.totalPages;
-      this.left = this.totalPages - (this.pageLimit - 1) < 1 ? 1 : this.totalPages - (this.pageLimit - 1);
+
+    if (this.data.rightMax > this.data.totalPages) {
+
+      this.data.rightMax = this.data.totalPages;
+      this.data.leftMax = this.data.totalPages - (this.pageLimit - 1) < 1 ? 1 : this.data.totalPages - (this.pageLimit - 1);
     }
+
   }
 
 
   private generateRange() {
     this.calculatePageRange();
 
-    this.pageRange = [];
-    for (let i = this.left; i <= this.right; i++) {
+    this.data.pageRange = [];
 
-      this.pageRange.push(i);
+    for (let i = this.data.leftMax; i <= this.data.rightMax; i++) {
+
+      this.data.pageRange.push(i);
     }
   }
 

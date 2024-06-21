@@ -3,55 +3,56 @@
   <table class="table" #table>
     <thead>
     <tr>
-      @if(showCheckBox){
-      <th>Select all   <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"  ></th>
+      @if (showCheckBox) {
+        <th>Select all <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"></th>
       }
 
 
-      @for(value of headers;track headers){
+      @for (value of headers; track headers) {
 
-      <th (click)="onSort(value,order[value])">
-        <div class="title">
-          <strong>{{value|titlecase}}</strong> <i class={{iconStyle[value]}}></i>
-       </div>
-      </th>
+        <th (click)="onSort(value,order[value])">
+          <div class="title">
+            <strong>{{ value|titlecase }}</strong> <i class={{iconStyle[value]}}></i>
+          </div>
+        </th>
       }
     </tr>
     </thead>
     <tbody>
-    @for(data of newTableData;track data;let i=$index){
-    <tr (change)="showFocus(data,i)" [ngStyle]="{'background':selectedRow.includes(data) && focusedRowIndex.includes(i)?focusColor:'none'
+      @for (data of data.currentData; track data; let i = $index) {
+        <tr (change)="showFocus(data,i)" [ngStyle]="{'background':selectedRow.includes(data) && focusedRowIndex.includes(i)?focusColor:'none'
     }">
-    @if(showCheckBox){
-    <td><input type="checkbox" [checked]="isSelected"></td>
-    }
-    @for(value of headers;track headers;let j=$index){
+          @if (showCheckBox) {
+            <td><input type="checkbox" [checked]="isSelected"></td>
+          }
+          @for (value of headers; track headers) {
 
-    <td>{{ checkNested(data, value) }}</td>
-    }
-    </tr>}
+            <td>{{ checkNested(data, value) }}</td>
+          }
+        </tr>
+      }
     </tbody>
 
   </table>
   <div class="bottom-container">
     <div class="pagination">
-      <button class="nav-btn" (click)="onPageChange(1)" [disabled]="startPage==1"><i
+      <button class="nav-btn" (click)="onPageChange(1)" [disabled]="data.startPage==1"><i
         class="pi pi-angle-double-left"></i></button>
-      <button class="nav-btn" (click)="onPageChange(startPage-1)" [disabled]="startPage==1"><i
+      <button class="nav-btn" (click)="onPageChange(data.startPage-1)" [disabled]="data.startPage==1"><i
         class="pi pi-chevron-left"></i></button>
-      @for(pages of pageRange;track pages;let i=$index){
+      @for (pages of data.pageRange; track pages; let i = $index) {
 
-      <button (click)="onPageChange(pages)"  [class.currentPage]="pages==startPage">{{pages}}</button>
+        <button (click)="onPageChange(pages)" [class.currentPage]="pages==data.startPage">{{ pages }}</button>
 
       }
-      <button class="nav-btn" (click)="onPageChange(startPage+1)" [disabled]="startPage==totalPages"><i
+      <button class="nav-btn" (click)="onPageChange(data.startPage+1)" [disabled]="data.startPage==data.totalPages"><i
         class="pi pi-chevron-right"></i></button>
-      <button class="nav-btn" (click)="onPageChange(totalPages)" [disabled]="startPage==totalPages"><i
+      <button class="nav-btn" (click)="onPageChange(data.totalPages)" [disabled]="data.startPage==data.totalPages"><i
         class="pi pi-angle-double-right"></i></button>
     </div>
     <div class="totalPage">
-      <p>Showing results {{ rowsPerPage * (startPage - 1) + 1 }}
-        to {{ end > tableData.length ? tableData.length : end }} of {{ tableData.length }}</p>
+      <p>Showing results {{ rowsPerPage * (data.startPage - 1) + 1 }}
+        to {{ data.endPage > tableData.length ? tableData.length : data.endPage }} of {{ tableData.length }}</p>
     </div>
   </div>
 
