@@ -15,7 +15,6 @@ import {NestedData} from "../../models/nested-data";
 import {OrderInterface} from "../../models/order.interface";
 import {TableActionsComponent} from "../table-actions/table-actions.component";
 import {CommonDataInterface} from "../../models/common-data.interface";
-import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 
 @Component({
   selector: 'app-table',
@@ -203,17 +202,26 @@ export class TableComponent implements OnInit,OnChanges{
       this.focusedRowIndex.push(index);
     }
   }
-
-  public toggleAllSelect(event:Event){
+  //
+  // public toggleAllSelect(event:Event){
+  //   const isChecked = (event.target as HTMLInputElement).checked;
+  //   this.isAllSelected = isChecked;
+  //   this.selectedRows = this.selectedRows.map(() => isChecked);
+  //   this.selectedRowValues=[...this.data.currentData]
+  //   this.rowEmitter.emit(this.selectedRowValues)
+  // }
+  public  toggleRowSelection(event: Event, index?: number) {
     const isChecked = (event.target as HTMLInputElement).checked;
-    this.isAllSelected = isChecked;
-    this.selectedRows = this.selectedRows.map(() => isChecked);
-    this.selectedRowValues=[...this.data.currentData]
-    this.rowEmitter.emit(this.selectedRowValues)
-  }
-  public  toggleRowSelection(event: Event, index: number) {
-    this.selectedRows[index] = (event.target as HTMLInputElement).checked;
-    this.isAllSelected = this.selectedRows.every(val => val);
+
+    if(index!=null){ this.selectedRows[index] = isChecked;
+      this.isAllSelected = this.selectedRows.every(val => val);}
+    else {
+      this.isAllSelected = isChecked;
+      this.selectedRows = this.selectedRows.map(() => isChecked);
+      this.selectedRowValues=[...this.data.currentData]
+      this.rowEmitter.emit(this.selectedRowValues)
+    }
+
 
   }
 }
