@@ -1,6 +1,10 @@
 
-
+@if(isLoading){
+  <app-table-loader></app-table-loader>
+}
+@else{
 <app-table [headers]="tableHeader" [tableData]="tableData" [rowsPerPage]="30" [pageLimit]="3"
 [nestedKey]="obj" [showCheckBox]="true" [enableFocus]="true" [focusColor]="'#e4d8ff'"
 (rowEmitter)="outputReceiver($event)"
 ></app-table>
+}
