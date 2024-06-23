@@ -186,9 +186,18 @@ export class TableComponent implements OnInit,OnChanges{
     return 'no data'
   }
 
-
+public  onRowClick(val: string, index: number){
+    if(!this.showCheckBox){
+      this.showFocus(val,index);
+    }
+}
+public  onRowChange(val: string, index: number){
+    if(this.showCheckBox){
+      this.showFocus(val, index)
+    }
+}
   // function to highlight and emit the value of selected row
-  public showFocus(val: string, index: number) {
+  private showFocus(val: string, index: number) {
 
     if(this.selectedRowValues.includes(val)){
       const valId=this.selectedRowValues.indexOf(val);
@@ -211,7 +220,7 @@ export class TableComponent implements OnInit,OnChanges{
     else {
       this.isAllSelected = isChecked;
       this.selectedRows = this.selectedRows.map(() => isChecked);
-      this.selectedRowValues=[...this.data.currentData]
+      this.selectedRowValues=isChecked?[...this.data.currentData]:[]
       this.rowEmitter.emit(this.selectedRowValues)
     }
 
