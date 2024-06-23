@@ -4,7 +4,7 @@
     <thead>
     <tr>
       @if (showCheckBox) {
-        <th>Select all <input type="checkbox" [(ngModel)]="isSelected" [checked]="isSelected"></th>
+        <th>Select all <input type="checkbox" [checked]="isAllSelected" (change)="toggleAllSelect($event)"></th>
       }
 
 
@@ -20,10 +20,10 @@
     </thead>
     <tbody>
       @for (data of data.currentData; track data; let i = $index) {
-        <tr (change)="showFocus(data,i)" [ngStyle]="{'background':selectedRow.includes(data) && focusedRowIndex.includes(i)?focusColor:'none'
+        <tr (change)="showFocus(data,i)" [ngStyle]="{'background':selectedRowValues.includes(data) && focusedRowIndex.includes(i)?focusColor:'none'
     }">
           @if (showCheckBox) {
-            <td><input type="checkbox" [checked]="isSelected"></td>
+            <td><input type="checkbox" [checked]="selectedRows[i]" (change)="toggleRowSelection($event, i)"></td>
           }
           @for (value of headers; track headers) {
 

@@ -15,6 +15,7 @@ import {NestedData} from "../../models/nested-data";
 import {OrderInterface} from "../../models/order.interface";
 import {TableActionsComponent} from "../table-actions/table-actions.component";
 import {CommonDataInterface} from "../../models/common-data.interface";
+import {emit} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 
 @Component({
   selector: 'app-table',
@@ -36,7 +37,7 @@ export class TableComponent implements OnInit,OnChanges{
     leftMax:1,
     rightMax:0
 
-  }
+  };
   // @ Receiving data from parent
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
@@ -51,7 +52,8 @@ export class TableComponent implements OnInit,OnChanges{
   // @ getting table element reference
   @ViewChild('table') table!: ElementRef;
 
-
+  isAllSelected:boolean=false;
+  selectedRows: boolean[] = [];
   // @Data display
 
   public order: OrderInterface = {};
@@ -61,12 +63,12 @@ export class TableComponent implements OnInit,OnChanges{
   public isSelected = false;
 
   public focusedRowIndex: number[] = [];
-  public selectedRow: string[] = [];
+  public selectedRowValues: string[] = [];
 
 
   ngOnInit(){
     this.data.endPage=this.data.startPage+this.pageLimit;
-    this.data.rightMax=this.pageLimit
+    this.data.rightMax=this.pageLimit;
 
 
   }
@@ -78,6 +80,8 @@ export class TableComponent implements OnInit,OnChanges{
       this.data.totalPages = Math.ceil(this.tableData.length / this.rowsPerPage);
       this.onPageChange(this.data.startPage);
       this.onSort(this.headers[1], 'desc');
+
+      this.selectedRows = this.data.currentData.map(() => false);
 
 
 
@@ -187,16 +191,29 @@ export class TableComponent implements OnInit,OnChanges{
   // function to highlight and emit the value of selected row
   public showFocus(val: string, index: number) {
 
-    if(this.selectedRow.includes(val)){
-      const valId=this.selectedRow.indexOf(val);
-      this.selectedRow.splice(valId,1);
+    if(this.selectedRowValues.includes(val)){
+      const valId=this.selectedRowValues.indexOf(val);
+      this.selectedRowValues.splice(valId,1);
     }else{
-      this.selectedRow.push(val);
+      this.selectedRowValues.push(val);
     }
 
-    this.rowEmitter.emit(this.selectedRow)
+    this.rowEmitter.emit(this.selectedRowValues)
     if (this.enableFocus) {
       this.focusedRowIndex.push(index);
     }
+  }
+
+  public toggleAllSelect(event:Event){
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.isAllSelected = isChecked;
+    this.selectedRows = this.selectedRows.map(() => isChecked);
+    this.selectedRowValues=[...this.data.currentData]
+    this.rowEmitter.emit(this.selectedRowValues)
+  }
+  public  toggleRowSelection(event: Event, index: number) {
+    this.selectedRows[index] = (event.target as HTMLInputElement).checked;
+    this.isAllSelected = this.selectedRows.every(val => val);
+
   }
 }
