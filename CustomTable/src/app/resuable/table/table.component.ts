@@ -35,8 +35,8 @@ export class TableComponent implements OnInit,OnChanges{
     pageRange:[],
     leftMax:1,
     rightMax:0
-
   };
+
   // @ Receiving data from parent
   @Input() headers: string[] = [];
   @Input() tableData: any[] = [];
@@ -53,8 +53,8 @@ export class TableComponent implements OnInit,OnChanges{
 
   isAllSelected:boolean=false;
   selectedRows: boolean[] = [];
-  // @Data display
 
+  // @Data display
   public order: OrderInterface = {};
   public iconStyle: OrderInterface = {};
 
@@ -68,31 +68,18 @@ export class TableComponent implements OnInit,OnChanges{
   ngOnInit(){
     this.data.endPage=this.data.startPage+this.pageLimit;
     this.data.rightMax=this.pageLimit;
-
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('tableData')) {
-
-
       this.data.totalPages = Math.ceil(this.tableData.length / this.rowsPerPage);
       this.onPageChange(this.data.startPage);
       this.onSort(this.headers[1], 'desc');
-
       this.selectedRows = this.data.currentData.map(() => false);
-
-
-
-
     }
-
   }
-
   // function to sort the values in ascending and descending order
   public onSort(value: string, orderType: string) {
-
-
     for (let k in this.headers) {
       const current = this.headers[k];
       // change the order and icon type only of the selected column
@@ -104,7 +91,6 @@ export class TableComponent implements OnInit,OnChanges{
           //update the table data array with sorted data
           this.data.currentData = this.data.currentData.sort((a, b): number => {
             return a[value] > b[value] ? 1 : -1;
-
           })
         } else {
           this.order[value] = 'desc';
@@ -119,10 +105,8 @@ export class TableComponent implements OnInit,OnChanges{
         this.order[current] = "desc"
         this.iconStyle[current] = "pi pi-sort-alt"
       }
-
     }
   }
-
   // slices the original table data based on start and end index
   public onPageChange(start: number) {
     this.data.startPage = start
@@ -130,52 +114,32 @@ export class TableComponent implements OnInit,OnChanges{
     start = this.rowsPerPage * (start - 1);
     this.data.endPage = start + this.rowsPerPage;
     this.data.currentData = this.tableData.slice(start, this.data.endPage)
-
-
   }
-
   // calculates the pagination range
   private calculatePageRange() {
     this.data.leftMax = this.data.startPage - Math.floor(this.pageLimit / 2)
     this.data.rightMax = this.data.startPage + Math.floor(this.pageLimit / 2)
-
-
     if (this.data.leftMax < 1) {
-
       this.data.leftMax = 1;
       this.data.rightMax = this.pageLimit;
-
     }
-
     if (this.data.rightMax > this.data.totalPages) {
-
       this.data.rightMax = this.data.totalPages;
       this.data.leftMax = this.data.totalPages - (this.pageLimit - 1) < 1 ? 1 : this.data.totalPages - (this.pageLimit - 1);
     }
-
   }
-
-
   private generateRange() {
     this.calculatePageRange();
-
     this.data.pageRange = [];
-
     for (let i = this.data.leftMax; i <= this.data.rightMax; i++) {
-
       this.data.pageRange.push(i);
     }
   }
-
-
   //function to check for nested data and return the value
   public checkNested(data: NestedData, value: string): string | NestedData {
-
     if (typeof (data[value]) !== "object") {
-
       return data[value]
     } else {
-
       for (let k in this.nestedKey) {
         if (k === value) {
           const nk = this.nestedKey[k];
@@ -198,14 +162,12 @@ public  onRowChange(val: string, index: number){
 }
   // function to highlight and emit the value of selected row
   private showFocus(val: string, index: number) {
-
     if(this.selectedRowValues.includes(val)){
       const valId=this.selectedRowValues.indexOf(val);
       this.selectedRowValues.splice(valId,1);
     }else{
       this.selectedRowValues.push(val);
     }
-
     this.rowEmitter.emit(this.selectedRowValues)
     if (this.enableFocus) {
       this.focusedRowIndex.push(index);
@@ -214,7 +176,6 @@ public  onRowChange(val: string, index: number){
 
   public  toggleRowSelection(event: Event, index?: number) {
     const isChecked = (event.target as HTMLInputElement).checked;
-
     if(index!=null){ this.selectedRows[index] = isChecked;
       this.isAllSelected = this.selectedRows.every(val => val);}
     else {
@@ -223,7 +184,5 @@ public  onRowChange(val: string, index: number){
       this.selectedRowValues=isChecked?[...this.data.currentData]:[]
       this.rowEmitter.emit(this.selectedRowValues)
     }
-
-
   }
 }

@@ -6,8 +6,6 @@
       @if (showCheckBox) {
         <th>Select all <input type="checkbox" [checked]="isAllSelected" (change)="toggleRowSelection($event)"></th>
       }
-
-
       @for (value of headers; track headers) {
 
         <th (click)="onSort(value,order[value])">
@@ -32,7 +30,6 @@
         </tr>
       }
     </tbody>
-
   </table>
   <div class="bottom-container">
     <div class="pagination">
@@ -43,7 +40,6 @@
       @for (pages of data.pageRange; track pages; let i = $index) {
 
         <button (click)="onPageChange(pages)" [class.currentPage]="pages==data.startPage">{{ pages }}</button>
-
       }
       <button class="nav-btn" (click)="onPageChange(data.startPage+1)" [disabled]="data.startPage==data.totalPages"><i
         class="pi pi-chevron-right"></i></button>
@@ -55,5 +51,4 @@
         to {{ data.endPage > tableData.length ? tableData.length : data.endPage }} of {{ tableData.length }}</p>
     </div>
   </div>
-
 </div>
