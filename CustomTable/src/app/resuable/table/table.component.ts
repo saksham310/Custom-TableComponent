@@ -202,14 +202,7 @@ export class TableComponent implements OnInit,OnChanges{
       this.focusedRowIndex.push(index);
     }
   }
-  //
-  // public toggleAllSelect(event:Event){
-  //   const isChecked = (event.target as HTMLInputElement).checked;
-  //   this.isAllSelected = isChecked;
-  //   this.selectedRows = this.selectedRows.map(() => isChecked);
-  //   this.selectedRowValues=[...this.data.currentData]
-  //   this.rowEmitter.emit(this.selectedRowValues)
-  // }
+
   public  toggleRowSelection(event: Event, index?: number) {
     const isChecked = (event.target as HTMLInputElement).checked;
 
